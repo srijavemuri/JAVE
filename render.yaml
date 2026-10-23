@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: jave
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: MONGODB_URI
+        sync: false
