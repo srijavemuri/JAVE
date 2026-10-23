@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JAVE — a place to connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#feed" aria-label="JAVE home"><span class="brand-mark">J</span><span>JA<span class="brand-light">VE</span></span></a>
+  <label class="searchbox"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search the room" aria-label="Search posts"></label>
+  <button class="top-login" id="headerLogin" type="button">Log in</button>
+</header>
+<main class="layout" id="feed">
+  <aside class="left-rail">
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a class="nav-item active" href="#feed"><span class="nav-icon">⌂</span> My feed</a>
+      <button class="nav-item" id="discoverButton" type="button"><span class="nav-icon">⌕</span> Discover</button>
+      <a class="nav-item" href="#community"><span class="nav-icon">◎</span> Community</a>
+    </nav>
+    <section class="auth-panel" id="auth">
+      <div id="registerPanel">
+        <p class="eyebrow">YOUR CORNER OF THE INTERNET</p>
+        <h2>Make yourself at home.</h2>
+        <p class="auth-copy">Join the conversation and meet people who get you.</p>
+        <form id="registerForm" class="stack-form">
+          <input id="regName" placeholder="Username" minlength="3" maxlength="30" autocomplete="username" required>
+          <input id="regEmail" type="email" placeholder="Email address" autocomplete="email" required>
+          <input id="regPass" type="password" placeholder="Password (8+ characters)" minlength="8" autocomplete="new-password" required>
+          <button class="button button-dark" type="submit">Create account <span aria-hidden="true">→</span></button>
+        </form>
+        <button class="text-button" type="button" id="toLogin">Already a member? <strong>Log in</strong></button>
+      </div>
+      <div id="loginPanel" class="hidden">
+        <p class="eyebrow">GOOD TO HAVE YOU BACK</p>
+        <h2>Come on in.</h2>
+        <form id="loginForm" class="stack-form">
+          <input id="loginEmail" type="email" placeholder="Email address" autocomplete="email" required>
+          <input id="loginPass" type="password" placeholder="Password" autocomplete="current-password" required>
+          <button class="button button-dark" type="submit">Log in <span aria-hidden="true">→</span></button>
+        </form>
+        <button class="text-button" type="button" id="toRegister">New around here? <strong>Join us</strong></button>
+      </div>
+      <p class="status" id="authStatus" role="status"></p>
+    </section>
+    <section class="account-panel hidden" id="account">
+      <span class="account-avatar" id="accountAvatar">C</span>
+      <div class="account-copy"><span class="eyebrow">SIGNED IN AS</span><strong id="userName"></strong></div>
+      <button class="icon-button" id="logout" type="button" aria-label="Log out" title="Log out">↗</button>
+    </section>
+    <div class="rail-note"><span class="note-spark">✳</span><p>A little more human, a little less noisy.</p><span>That’s the idea.</span></div>
+    <p class="legal">About&nbsp; · &nbsp;Guidelines&nbsp; · &nbsp;Privacy<br>© 2026 JAVE</p>
+  </aside>
+
+  <section class="main-column" aria-label="Community feed">
+    <div class="welcome-row">
+      <div><p class="eyebrow" id="currentDate"></p><h1>Good to see you<span class="hello-dot">.</span></h1></div>
+      <span class="online-count"><i></i> A good day to say hello</span>
+    </div>
+    <section class="prompt-strip" aria-label="Conversation starters">
+      <div class="prompt-copy"><span class="prompt-icon">✳</span><div><strong>Start with something small</strong><span>Pick a prompt and make it yours.</span></div></div>
+      <div class="prompt-actions">
+        <button type="button" class="prompt-chip" data-prompt="A small thing that made my day today: ">A small win</button>
+        <button type="button" class="prompt-chip" data-prompt="Lately, I've been curious about: ">Lately curious</button>
+      </div>
+    </section>
+    <section class="composer" aria-label="Create a post">
+      <div class="composer-top"><span class="composer-avatar" id="composerAvatar">Y</span><span class="composer-label">What’s on your mind?</span></div>
+      <form id="postForm">
+        <input id="postName" class="name-input" placeholder="Your name" maxlength="50" aria-label="Your name" required>
+        <textarea id="postText" placeholder="A thought, a question, a little something…" maxlength="2000" required></textarea>
+        <div class="composer-bottom"><span class="composer-hint">A good conversation starts anywhere.</span><button class="button button-coral" id="share" type="submit"><span aria-hidden="true">＋</span> Share post</button></div>
+      </form>
+      <p class="status" id="postStatus" role="status"></p>
+    </section>
+    <div class="feed-heading"><div><p class="eyebrow">JAVE COMMUNITY</p><h2>Community feed</h2></div><div class="feed-controls" role="group" aria-label="Sort posts"><button type="button" class="sort-button active" data-sort="latest">Latest</button><button type="button" class="sort-button" data-sort="popular">Popular</button></div></div>
+    <p class="status load-status" id="loadStatus" role="status">Finding your people…</p>
+    <div id="posts" class="post-list"></div>
+  </section>
+
+  <aside class="right-rail" id="community">
+    <section class="stories-section">
+      <div class="section-heading"><h2>In the room</h2><span class="live-label"><i></i> LIVE</span></div>
+      <div class="story-list">
+        <button class="story" type="button" data-prompt="A question I've been meaning to ask: "><span class="story-ring ring-coral"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80" alt="" loading="lazy"></span><span>Amara</span></button>
+        <button class="story" type="button" data-prompt="One place I keep thinking about: "><span class="story-ring ring-lime"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80" alt="" loading="lazy"></span><span>Leo</span></button>
+        <button class="story" type="button" data-prompt="Something I learned this week: "><span class="story-ring ring-blue"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=120&h=120&q=80" alt="" loading="lazy"></span><span>Nia</span></button>
+        <button class="story" type="button" data-prompt="A song I can't stop playing: "><span class="story-ring ring-yellow"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&h=120&q=80" alt="" loading="lazy"></span><span>Sam</span></button>
+      </div>
+    </section>
+    <section class="side-feature">
+      <div class="feature-image"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=85" alt="Friends spending a sunny afternoon together" loading="lazy"><span class="image-tag">ROOM TO GROW</span></div>
+      <div class="feature-copy"><p class="eyebrow">A NOTE FROM US</p><h2>Good things happen when we show up.</h2><p>Share a thought. Ask a question. Leave the room a little brighter.</p><a href="#postForm">Add your voice <span aria-hidden="true">↗</span></a></div>
+    </section>
+    <section class="trending-section"><div class="section-heading"><h2>People are talking about</h2><span class="trending-mark">✳</span></div><button class="topic-row" type="button" data-search="weekend"><span class="topic-number">01</span><span><strong>#weekendplans</strong><small>Good ideas, no big plans</small></span><span class="topic-arrow">↗</span></button><button class="topic-row" type="button" data-search="creative"><span class="topic-number">02</span><span><strong>#makingsomething</strong><small>Works in progress welcome</small></span><span class="topic-arrow">↗</span></button><button class="topic-row" type="button" data-search="books"><span class="topic-number">03</span><span><strong>#currentlyreading</strong><small>Pass the recommendations</small></span><span class="topic-arrow">↗</span></button></section>
+  </aside>
+</main>
+<footer class="mobile-footer">A little more human, a little less noisy. <span>© 2026 JAVE</span></footer>
+<script src="/app.js" defer></script>
+</body>
+</html>
